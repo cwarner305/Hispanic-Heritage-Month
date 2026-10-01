@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrando Nuestra Herencia - Hispanic Heritage Month</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#E63946',
+                            gold: '#F4A261',
+                            teal: '#2A9D8F',
+                            navy: '#264653',
+                            purple: '#7209B7',
+                            terracotta: '#D90429',
+                            yellow: '#FFB703'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        cursive: ['Caveat', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .papel-picado {
+            background-color: #E63946;
+            background-image: radial-gradient(#F4A261 20%, transparent 20%), radial-gradient(#2A9D8F 20%, transparent 20%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #F4A261;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #E63946;
+        }
+    </style>
+</head>
+<body class="bg-amber-50/50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <header class="relative bg-gradient-to-r from-brand-red via-brand-gold to-brand-purple text-white shadow-lg overflow-hidden">
+        <!-- Festive Banner Overlay -->
+        <div class="absolute inset-0 opacity-15 pointer-events-none papel-picado"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 text-center">
+            <div class="inline-block bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-sm uppercase tracking-wider font-bold mb-3 border border-white/30">
+                <i class="fa-solid fa-star text-yellow-300 mr-2"></i>Mes de la Herencia Hispana<i class="fa-solid fa-star text-yellow-300 ml-2"></i>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight drop-shadow-md">
+                Celebrando Nuestra Herencia
+            </h1>
+            <p class="mt-3 text-lg sm:text-xl text-amber-100 max-w-3xl mx-auto font-medium">
+                Explore influential leaders, artists, pioneers, and icons from all 21 Spanish-speaking countries, plus Puerto Rico and the United States!
+            </p>
+
+            <!-- Search and Action Bar -->
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
+                <div class="relative w-full">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, achievement, or keyword..." 
+                        class="w-full pl-11 pr-4 py-3 rounded-full text-slate-800 bg-white shadow-inner focus:outline-none focus:ring-4 focus:ring-amber-300 transition-all placeholder:text-slate-400">
+                </div>
+                <button id="canvasModalBtn" class="w-full sm:w-auto px-6 py-3 bg-brand-teal hover:bg-teal-700 text-white font-bold rounded-full shadow-md transition-all flex items-center justify-center gap-2 whitespace-nowrap border border-teal-400">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Canvas Embed Code</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Decorative Bottom Border -->
+        <div class="h-3 bg-repeat-x bg-contain" style="background-image: linear-gradient(135deg, #FFB703 25%, transparent 25%), linear-gradient(225deg, #FFB703 25%, transparent 25%); background-size: 16px 16px;"></div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- Regional Category Tabs -->
+        <div class="mb-6 flex flex-wrap gap-2 justify-center" id="regionTabs">
+            <!-- Dynamically Rendered Region Tabs -->
+        </div>
+
+        <!-- Country Selection Bar (Scrollable) -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                    <i class="fa-solid fa-earth-americas text-brand-teal"></i> Select Country/Region
+                </span>
+                <span id="countryCountBadge" class="text-xs font-semibold bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">23 Regions</span>
+            </div>
+            <div id="countryTabs" class="flex gap-2 overflow-x-auto pb-4 custom-scrollbar snap-x">
+                <!-- Country Buttons Injected JS -->
+            </div>
+        </div>
+
+        <!-- Field / Industry Filter Pills -->
+        <div class="mb-8 flex flex-wrap items-center justify-center gap-2 bg-white p-4 rounded-2xl shadow-sm border border-amber-100">
+            <span class="text-sm font-semibold text-slate-600 mr-2 flex items-center gap-1">
+                <i class="fa-solid fa-filter text-brand-gold"></i> Industry:
+            </span>
+            <button class="field-filter-btn active bg-brand-navy text-white px-3.5 py-1.5 rounded-full text-sm font-medium transition-all" data-field="All">All Fields</button>
+            <button class="field-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full text-sm font-medium transition-all" data-field="Arts & Literature">🎨 Arts & Literature</button>
+            <button class="field-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full text-sm font-medium transition-all" data-field="Music & Film">🎵 Music & Film</button>
+            <button class="field-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full text-sm font-medium transition-all" data-field="Sports">⚽ Sports</button>
+            <button class="field-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full text-sm font-medium transition-all" data-field="Science & Innovation">🔬 Science & Tech</button>
+            <button class="field-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full text-sm font-medium transition-all" data-field="Activism & Leadership">✊ Leadership & Activism</button>
+        </div>
+
+        <!-- Active View Header -->
+        <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/80 pb-4">
+            <div>
+                <h2 id="currentTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-800 flex items-center gap-3">
+                    <!-- Title injected JS -->
+                </h2>
+                <p id="currentSubtitle" class="text-slate-600 text-sm mt-1">
+                    <!-- Subtitle injected JS -->
+                </p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="resultsCount" class="text-xs font-semibold text-slate-500 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm">
+                    Showing figures...
+                </span>
+            </div>
+        </div>
+
+        <div id="figuresGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Figure Cards injected via JS -->
+        </div>
+
+        <!-- No Results State -->
+        <div id="noResults" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-amber-300 p-8 shadow-sm">
+            <i class="fa-solid fa-compass text-5xl text-amber-400 mb-4"></i>
+            <h3 class="text-xl font-bold text-slate-700">No Hispanic figures found</h3>
+            <p class="text-slate-500 mt-2 text-sm">Try tweaking your search term or choosing a different industry filter.</p>
+            <button id="resetSearchBtn" class="mt-4 px-5 py-2 bg-brand-gold text-white font-bold rounded-full text-sm hover:bg-amber-600 transition-all">
+                Reset Filters
+            </button>
+        </div>
+    </main>
+
+    <div id="figureModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border-4 border-amber-300 animate-in fade-in zoom-in duration-200">
+            <!-- Modal Header / Banner -->
+            <div id="modalHeader" class="p-6 text-white relative rounded-t-2xl bg-gradient-to-r from-brand-red to-brand-gold">
+                <button id="closeModalBtn" class="absolute top-4 right-4 bg-black/30 hover:bg-black/50 text-white rounded-full w-9 h-9 flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="flex items-center gap-3 mb-2">
+                    <span id="modalFlag" class="text-3xl"></span>
+                    <span id="modalCountry" class="text-sm uppercase tracking-widest font-bold opacity-90"></span>
+                </div>
+                <h2 id="modalName" class="text-3xl font-extrabold tracking-tight"></h2>
+                <span id="modalField" class="inline-block mt-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider"></span>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 sm:p-8 space-y-6">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-brand-teal"></i> Biography & Background
+                    </h4>
+                    <p id="modalBio" class="text-slate-700 leading-relaxed font-normal"></p>
+                </div>
+
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                    <h4 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-brand-gold"></i> Fast Fun Fact / Key Quote
+                    </h4>
+                    <p id="modalFact" class="text-amber-900 font-medium italic text-sm sm:text-base"></p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-brand-gold"></i> Notable Achievements & Cultural Impact
+                    </h4>
+                    <ul id="modalAchievements" class="space-y-2 text-slate-700 text-sm">
+                        <!-- List injected JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-slate-50 rounded-b-2xl border-t border-slate-100 text-right">
+                <button id="closeModalFooterBtn" class="px-5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-sm transition-all">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="canvasModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border-2 border-brand-teal">
+            <button id="closeCanvasModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-teal-100 text-brand-teal flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800">Canvas LMS Integration</h3>
+                    <p class="text-xs text-slate-500">How to embed this resource on your Canvas page</p>
+                </div>
+            </div>
+
+            <p class="text-sm text-slate-600 mb-4">
+                You can easily embed this full interactive app into any Canvas Page, Assignment, or Discussion Board post using an iframe.
+            </p>
+
+            <div class="space-y-3 mb-6">
+                <div class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Instructions:</div>
+                <ol class="list-decimal list-inside text-xs text-slate-600 space-y-1.5">
+                    <li>In Canvas, open the page editor and click the <strong class="text-slate-800">HTML Editor</strong> button (<i class="fa-solid fa-code"></i>).</li>
+                    <li>Copy the snippet below and paste it into the HTML code block.</li>
+                    <li>Save the page. Your students can now explore all 23 regions directly!</li>
+                </ol>
+            </div>
+
+            <div class="relative mb-6">
+                <textarea id="embedCodeText" readonly class="w-full h-28 p-3 text-xs font-mono bg-slate-900 text-teal-300 rounded-xl focus:outline-none resize-none"></textarea>
+                <button id="copyEmbedBtn" class="absolute top-2 right-2 px-3 py-1 bg-brand-gold text-slate-900 text-xs font-bold rounded-lg shadow hover:bg-amber-400 transition-all flex items-center gap-1">
+                    <i class="fa-regular fa-copy"></i> Copy Code
+                </button>
+            </div>
+
+            <div id="copySuccessMsg" class="hidden text-center text-xs text-emerald-600 font-bold mb-4">
+                <i class="fa-solid fa-check mr-1"></i> Copied to clipboard!
+            </div>
+
+            <div class="text-right">
+                <button id="closeCanvasModalFooter" class="px-5 py-2 bg-brand-teal text-white font-bold rounded-xl text-sm hover:bg-teal-700 transition-all">
+                    Got it!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 text-amber-100 py-8 mt-12 border-t-4 border-brand-gold">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-cursive text-3xl text-brand-gold mb-2">¡Orgullo y Cultura!</p>
+            <p class="text-xs text-slate-400">
+                Created for Educational Use • Hispanic Heritage Month Showcase • Covers all 21 Official Spanish-Speaking Nations + USA & Puerto Rico
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Store: 23 Regions (21 Spanish-speaking + USA & PR) with 4-5 figures each
+        const hispanicData = [
+            // --- NORTH AMERICA ---
+            {
+                id: 'mexico',
+                name: 'Mexico',
+                flag: '🇲🇽',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Frida Kahlo',
+                        field: 'Arts & Literature',
+                        bio: 'Renowned world-wide for her uncompromising and vividly colored self-portraits that deal with themes of identity, the human body, and death.',
+                        fact: '"I paint my own reality. The only thing I know is that I paint because I need to."',
+                        achievements: ['Pioneer of modern surrealism and folk art', 'Iconic symbol for feminist and LGBTQ+ movement', 'Work displayed in global museums including the Louvre']
+                    },
+                    {
+                        name: 'Guillermo del Toro',
+                        field: 'Music & Film',
+                        bio: 'Academy Award-winning director, producer, and screenwriter known for dark fantasy films combining fairy tale motifs and monster horror.',
+                        fact: 'Won Oscars for Best Picture and Best Director for "The Shape of Water".',
+                        achievements: ['Director of Pan’s Labyrinth & Cabinet of Curiosities', 'Advocate for Latinx filmmakers in Hollywood', 'Master of practical visual effects']
+                    },
+                    {
+                        name: 'Hugo Sánchez',
+                        field: 'Sports',
+                        bio: 'Widely regarded as the greatest Mexican footballer of all time, famous for his extraordinary bicycle kicks and acrobatics.',
+                        fact: 'Won five consecutive Pichichi trophies as top goal scorer in Spain’s La Liga with Real Madrid.',
+                        achievements: ['Inducted into the International Football Hall of Fame', 'Scored over 500 career goals', 'Led Real Madrid to 5 straight league titles']
+                    },
+                    {
+                        name: 'Ellen Ochoa',
+                        field: 'Science & Innovation',
+                        bio: 'An engineer, former astronaut, and former director of the Johnson Space Center. She became the first Hispanic woman in space in 1993.',
+                        fact: 'Logged nearly 1,000 hours in space across four Space Shuttle missions.',
+                        achievements: ['Co-inventor on three optical processing patents', 'Director of NASA Johnson Space Center (2013–2018)', 'Inducted into Astronaut Hall of Fame']
+                    },
+                    {
+                        name: 'Sor Juana Inés de la Cruz',
+                        field: 'Activism & Leadership',
+                        bio: '17th-century self-taught scholar, philosopher, composer, poet, and nun. Recognized as one of the earliest advocates for women’s right to education.',
+                        fact: 'Her portrait appears on the Mexican 100-peso banknote.',
+                        achievements: ['Authored early feminist text "Respuesta a Sor Filotea"', 'Key figure in Baroque literary movement', 'Pioneer of Latin American women\'s literature']
+                    }
+                ]
+            },
+            {
+                id: 'usa',
+                name: 'United States',
+                flag: '🇺🇸',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'César Chávez',
+                        field: 'Activism & Leadership',
+                        bio: 'Civil rights activist and labor leader who co-founded the United Farm Workers (UFW) union to fight for farmworkers\' rights.',
+                        fact: 'Coined the famous phrase "¡Sí, se puede!" (Yes, we can!).',
+                        achievements: ['Led nationwide grape boycotts for farmworker rights', 'Awarded Presidential Medal of Freedom', 'Established March 31 as César Chávez Day']
+                    },
+                    {
+                        name: 'Sonia Sotomayor',
+                        field: 'Activism & Leadership',
+                        bio: 'Associate Justice of the Supreme Court of the United States, making history as the first Hispanic and third female Justice.',
+                        fact: 'Graduated summa cum laude from Princeton and received her J.D. from Yale Law School.',
+                        achievements: ['Appointed to U.S. Supreme Court in 2009', 'Author of bestselling memoir "My Beloved World"', 'Lifelong advocate for equal justice']
+                    },
+                    {
+                        name: 'Lin-Manuel Miranda',
+                        field: 'Music & Film',
+                        bio: 'Pulitzer Prize-winning playwright, composer, and actor who revolutionized Broadway with musicals like "Hamilton" and "In the Heights".',
+                        fact: 'Achieved "PEGOT" status (Pulitzer, Emmy, Grammy, Oscar nominee, Tony).',
+                        achievements: ['Creator of global cultural phenomenon "Hamilton"', 'Composer for Disney’s Moana & Encanto', 'Kennedy Center Honors recipient']
+                    },
+                    {
+                        name: 'Laurie Hernandez',
+                        field: 'Sports',
+                        bio: 'Olympic gymnast and author who won Olympic Gold and Silver medals at the 2016 Rio Games as part of the "Final Five".',
+                        fact: 'Nicknamed "The Human Emoji" for her vibrant facial expressions during competitions.',
+                        achievements: ['2016 Olympic Gold & Silver Medalist', 'Author of New York Times bestseller "I Got This"', 'Pioneer for Latinas in USA Gymnastics']
+                    }
+                ]
+            },
+
+            // --- CENTRAL AMERICA ---
+            {
+                id: 'costa_rica',
+                name: 'Costa Rica',
+                flag: '🇨🇷',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Franklin Chang-Díaz',
+                        field: 'Science & Innovation',
+                        bio: 'Mechanical engineer and former NASA astronaut. He is a veteran of 7 space shuttle missions, holding the record for total spaceflights.',
+                        fact: 'Founder and CEO of Ad Astra Rocket Company, working on plasma rocket propulsion.',
+                        achievements: ['Tied record for most spaceflights (7 missions)', 'Inducted into NASA Astronaut Hall of Fame', 'Pioneer in advanced electric space propulsion']
+                    },
+                    {
+                        name: 'Keylor Navas',
+                        field: 'Sports',
+                        bio: 'World-class football goalkeeper who achieved historic success winning three consecutive UEFA Champions League titles with Real Madrid.',
+                        fact: 'Considered one of the greatest goalkeepers in CONCACAF football history.',
+                        achievements: ['3x UEFA Champions League Winner with Real Madrid', 'Led Costa Rica to World Cup Quarter-Finals in 2014', 'CONCACAF Men\'s Player of the Year']
+                    },
+                    {
+                        name: 'Christiana Figueres',
+                        field: 'Activism & Leadership',
+                        bio: 'Internationally recognized leader on global climate change who served as Executive Secretary of the UN Framework Convention on Climate Change.',
+                        fact: 'Instrumental in crafting the landmark 2015 Paris Climate Agreement.',
+                        achievements: ['Lead architect of Paris Agreement on Climate Change', 'Co-founder of Global Optimism organization', 'Recipient of the Dan David Prize']
+                    },
+                    {
+                        name: 'Carmen Lyra',
+                        field: 'Arts & Literature',
+                        bio: 'Pen name of Maria Isabel Carvajal, a prominent Costa Rican writer and educator regarded as the founder of Costa Rican children\'s literature.',
+                        fact: 'Her book "Cuentos de Mi Tía Panchita" remains a beloved classic in Central America.',
+                        achievements: ['Pioneer of Costa Rican children\'s literary tradition', 'Political activist and educational reformer', 'Featured on Costa Rica’s 20,000 colón bill']
+                    }
+                ]
+            },
+            {
+                id: 'el_salvador',
+                name: 'El Salvador',
+                flag: '🇸🇻',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Oscar Romero',
+                        field: 'Activism & Leadership',
+                        bio: 'Archbishop of San Salvador who spoke out against poverty, social injustice, assassinations, and torture. Canonized as a saint in 2018.',
+                        fact: 'Assassinated while celebrating Mass in 1980 due to his defense of human rights.',
+                        achievements: ['International champion for human rights and justice', 'Canonized Saint by the Catholic Church', 'Nominated for Nobel Peace Prize']
+                    },
+                    {
+                        name: 'Consuelo de Saint-Exupéry',
+                        field: 'Arts & Literature',
+                        bio: 'Salvadoran-French writer and artist, the wife and muse of Antoine de Saint-Exupéry, author of the legendary novella "The Little Prince".',
+                        fact: 'She inspired the character of "The Rose" in The Little Prince.',
+                        achievements: ['Prolific sculptor, painter, and author', 'Wrote memoir "The Tale of the Rose"', 'Cultural icon linking Central America and Europe']
+                    },
+                    {
+                        name: 'Jorge "Mágico" González',
+                        field: 'Sports',
+                        bio: 'Legendary football player celebrated for his astonishing dribbling skill and flair, revered as one of the most gifted players of his era.',
+                        fact: 'Diego Maradona called him one of the top ten players he had ever seen.',
+                        achievements: ['Inducted into FIFA Hall of Fame', 'Legendary icon for Spanish club Cádiz CF', 'National sports hero of El Salvador']
+                    },
+                    {
+                        name: 'Priscila Rivera',
+                        field: 'Activism & Leadership',
+                        bio: 'Prominent community advocate and scholar highlighting Salvadoran Diaspora contributions and educational equity.',
+                        fact: 'Works extensively to build bridges between Salvadoran youth and global leadership.',
+                        achievements: ['Advocate for immigrant youth education', 'Promoter of Salvadoran art and heritage globally']
+                    }
+                ]
+            },
+            {
+                id: 'guatemala',
+                name: 'Guatemala',
+                flag: '🇬🇹',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Rigoberta Menchú Tum',
+                        field: 'Activism & Leadership',
+                        bio: 'K\'iche\' Indigenous Guatemalan human rights activist who dedicated her life to publicizing the rights of Guatemala\'s Indigenous feminists.',
+                        fact: 'Awarded the Nobel Peace Prize in 1992 at just 33 years old.',
+                        achievements: ['1992 Nobel Peace Prize Laureate', 'UNESCO Goodwill Ambassador', 'Author of "I, Rigoberta Menchú"']
+                    },
+                    {
+                        name: 'Miguel Ángel Asturias',
+                        field: 'Arts & Literature',
+                        bio: 'Nobel Prize-winning poet-diplomat, novelist, playwright, and journalist who helped establish Latin American magical realism.',
+                        fact: 'Won the Nobel Prize in Literature in 1967.',
+                        achievements: ['Author of literary masterpiece "El Señor Presidente"', 'Pioneer of indigenous mythology in literature', 'Recipient of Lenin Peace Prize']
+                    },
+                    {
+                        name: 'Ricardo Arjona',
+                        field: 'Music & Film',
+                        bio: 'Grammy-winning singer-songwriter and one of the most successful Latin American artists of all time, with over 80 million albums sold.',
+                        fact: 'Former schoolteacher and talented basketball player who represented Guatemala internationally.',
+                        achievements: ['Grammy & Latin Grammy Award winner', 'Sold over 80 million albums worldwide', 'Founder of Adentro Foundation for rural education']
+                    },
+                    {
+                        name: 'Luis von Ahn',
+                        field: 'Science & Innovation',
+                        bio: 'Entrepreneur and computer scientist who co-founded Duolingo and CAPTCHA, revolutionizing online security and language learning.',
+                        fact: 'Awarded a MacArthur "Genius" Fellowship at age 27.',
+                        achievements: ['Co-founder and CEO of Duolingo', 'Inventor of CAPTCHA and reCAPTCHA', 'Pioneer in crowdsourced human computation']
+                    }
+                ]
+            },
+            {
+                id: 'honduras',
+                name: 'Honduras',
+                flag: '🇭🇳',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Berta Cáceres',
+                        field: 'Activism & Leadership',
+                        bio: 'Indigenous Lenca environmental activist and co-founder of the Council of Popular and Indigenous Organizations of Honduras (COPINH).',
+                        fact: 'Won the prestigious Goldman Environmental Prize in 2015.',
+                        achievements: ['Goldman Environmental Prize Winner', 'Leader in defense of Lenca land and river rights', 'Global symbol for eco-activism']
+                    },
+                    {
+                        name: 'Sir Salvador Moncada',
+                        field: 'Science & Innovation',
+                        bio: 'Renowned pharmacologist and scientist whose research on nitric oxide led to vital breakthroughs in cardiovascular medicine.',
+                        fact: 'Knighted by Queen Elizabeth II for services to science in 2010.',
+                        achievements: ['Discovered biological mechanisms of prostacyclin', 'Fellow of the Royal Society', 'Published over 800 scientific research papers']
+                    },
+                    {
+                        name: 'America Ferrera',
+                        field: 'Music & Film',
+                        bio: 'Emmy, Golden Globe, and SAG Award-winning actress of Honduran descent, known for roles in "Ugly Betty", "Real Women Have Curves", and "Barbie".',
+                        fact: 'Delivered an iconic monologue on womanhood in the 2023 movie "Barbie".',
+                        achievements: ['First Latina to win Primetime Emmy for Outstanding Lead Actress', 'Oscar Nominee for Best Supporting Actress', 'Co-founder of Harness advocacy group']
+                    },
+                    {
+                        name: 'David Suazo',
+                        field: 'Sports',
+                        bio: 'Prolific professional footballer who played as a striker for Italian giants Inter Milan and the Honduras National Team.',
+                        fact: 'Named Serie A Foreign Footballer of the Year in 2006 alongside Kaka.',
+                        achievements: ['Won Serie A title with Inter Milan', 'Represented Honduras at 2010 FIFA World Cup', 'BBC African/CONCACAF Star Icon']
+                    }
+                ]
+            },
+            {
+                id: 'nicaragua',
+                name: 'Nicaragua',
+                flag: '🇳🇮',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Rubén Darío',
+                        field: 'Arts & Literature',
+                        bio: 'Poet who initiated the Spanish-American literary movement known as *Modernismo* (Modernism) that transformed 20th-century Spanish literature.',
+                        fact: 'Referred to as the "Prince of Castilian Letters".',
+                        achievements: ['Father of Modernismo literary movement', 'Author of groundbreaking collection "Azul..."', 'National cultural icon of Nicaragua']
+                    },
+                    {
+                        name: 'Alexis Argüello',
+                        field: 'Sports',
+                        bio: 'Professional boxer who won world titles in three different weight divisions and is remembered as one of boxing\'s greatest punchers.',
+                        fact: 'Known as "El Flaco Explosivo" (The Explosive Thin Man).',
+                        achievements: ['3-Weight Class World Champion', 'Inducted into International Boxing Hall of Fame', 'Flag bearer for Nicaragua at 2008 Olympics']
+                    },
+                    {
+                        name: 'Gioconda Belli',
+                        field: 'Arts & Literature',
+                        bio: 'World-renowned author and poet whose feminist writings and memoirs explore revolution, political freedom, and women\'s autonomy.',
+                        fact: 'Won the prestigious Hermann Kesten Prize in 2023.',
+                        achievements: ['Author of international bestseller "The Inhabited Woman"', 'President of PEN Nicaragua', 'International Award for Poetry winner']
+                    },
+                    {
+                        name: 'Bianca Jagger',
+                        field: 'Activism & Leadership',
+                        bio: 'Human rights and climate advocate who serves as a Council of Europe Goodwill Ambassador and founder of the Bianca Jagger Human Rights Foundation.',
+                        fact: 'Recipient of the Right Livelihood Award (Alternative Nobel Prize) in 2004.',
+                        achievements: ['Council of Europe Goodwill Ambassador', 'Human rights campaigner across Central America and Europe', 'Chair of Bianca Jagger Human Rights Foundation']
+                    }
+                ]
+            },
+            {
+                id: 'panama',
+                name: 'Panama',
+                flag: '🇵🇦',
+                region: 'North & Central America',
+                figures: [
+                    {
+                        name: 'Roberto Durán',
+                        field: 'Sports',
+                        bio: 'Legendary boxer known as "Manos de Piedra" (Hands of Stone) who held world championships in four weight classes over a 33-year career.',
+                        fact: 'Considered one of the greatest lightweight boxers of all time.',
+                        achievements: ['Four-weight World Champion', 'Inducted into World Boxing Hall of Fame', 'National hero and icon of Panama']
+                    },
+                    {
+                        name: 'Rubén Blades',
+                        field: 'Music & Film',
+                        bio: 'Iconic salsa singer, songwriter, actor, and politician who brought social consciousness and storytelling to Latin jazz and salsa music.',
+                        fact: 'Has won 11 Grammy Awards and 11 Latin Grammy Awards.',
+                        achievements: ['Album "Siembra" became best-selling salsa record in history', 'Named Person of the Year by Latin Recording Academy', 'Former Minister of Tourism of Panama']
+                    },
+                    {
+                        name: 'Mariano Rivera',
+                        field: 'Sports',
+                        bio: 'Hall of Fame baseball pitcher who played 19 seasons for the New York Yankees and became MLB\'s all-time saves leader.',
+                        fact: 'The first and only player in Baseball Hall of Fame history elected unanimously (100% votes).',
+                        achievements: ['5x World Series Champion', '13x MLB All-Star', 'MLB All-time Leader in Saves (652)']
+                    },
+                    {
+                        name: 'Erika Ender',
+                        field: 'Music & Film',
+                        bio: 'Singer and composer who co-wrote the global hit song "Despacito", becoming the youngest person inducted into the Latin Songwriters Hall of Fame.',
+                        fact: 'First Hispanic woman to be nominated for Song of the Year at the Grammy Awards.',
+                        achievements: ['Co-writer of worldwide hit "Despacito"', 'Latin Songwriters Hall of Fame Inductee', 'Founder of Puertas Abiertas educational foundation']
+                    }
+                ]
+            },
+
+            // --- CARIBBEAN ---
+            {
+                id: 'cuba',
+                name: 'Cuba',
+                flag: '🇨🇺',
+                region: 'Caribbean',
+                figures: [
+                    {
+                        name: 'Celia Cruz',
+                        field: 'Music & Film',
+                        bio: 'The "Queen of Salsa", one of the most popular Latin artists of the 20th century, famous for her explosive energy and catchphrase "¡Azúcar!"',
+                        fact: 'Recorded over 70 albums and earned 3 Grammy and 4 Latin Grammy Awards.',
+                        achievements: ['National Medal of Arts recipient', 'Pioneer for Afro-Cuban musicians globally', 'Commemorated on U.S. Quarter coin in 2024']
+                    },
+                    {
+                        name: 'José Martí',
+                        field: 'Activism & Leadership',
+                        bio: 'Poet, philosopher, essayist, and national hero who became the symbol of Cuba\'s struggle for independence from Spain.',
+                        fact: 'Authored verses used in the famous song "Guantanamera".',
+                        achievements: ['Key intellectual architect of Cuban Independence', 'Pioneer of Modernist literature', 'Universal symbol of liberty and self-determination']
+                    },
+                    {
+                        name: 'Gloria Estefan',
+                        field: 'Music & Film',
+                        bio: 'Eight-time Grammy Award-winning singer, songwriter, and businesswoman credited with breaking down barriers for crossover Latin pop.',
+                        fact: 'First Cuban-American recipient of the Kennedy Center Honors.',
+                        achievements: ['Presidential Medal of Freedom recipient', 'Over 100 million records sold worldwide', 'Songwriters Hall of Fame Inductee']
+                    },
+                    {
+                        name: 'Javier Sotomayor',
+                        field: 'Sports',
+                        bio: 'Retired track and field athlete who specializes in the high jump and holds the world record of 2.45 m (8 ft 0 1⁄2 in) since 1993.',
+                        fact: 'The only person in human history to jump higher than 8 feet.',
+                        achievements: ['1992 Olympic Gold Medalist', 'Current World Record holder in High Jump', 'Prince of Asturias Award Winner']
+                    }
+                ]
+            },
+            {
+                id: 'dominican_republic',
+                name: 'Dominican Republic',
+                flag: '🇩🇴',
+                region: 'Caribbean',
+                figures: [
+                    {
+                        name: 'Oscar de la Renta',
+                        field: 'Arts & Literature',
+                        bio: 'World-renowned fashion designer who dressed film stars, royalty, and American First Ladies including Jacqueline Kennedy and Michelle Obama.',
+                        fact: 'Trained under Cristóbal Balenciaga before launching his own global luxury fashion house.',
+                        achievements: ['CODA Lifetime Achievement Award Winner', 'Designer for global icons and royalty', 'Patron of arts and education in the DR']
+                    },
+                    {
+                        name: 'Juan Luis Guerra',
+                        field: 'Music & Film',
+                        bio: 'Musician, singer, composer, and producer who brought merengue and bachata music to international worldwide audiences.',
+                        fact: 'Won 27 Latin Grammy Awards and 3 Grammy Awards.',
+                        achievements: ['Global ambassador for Bachata & Merengue', 'Berklee College of Music alumnus & honorary doctorate', 'Sold over 30 million records worldwide']
+                    },
+                    {
+                        name: 'David Ortiz',
+                        field: 'Sports',
+                        bio: 'Nicknamed "Big Papi", an MLB Hall of Fame designated hitter who led the Boston Red Sox to three World Series championships.',
+                        fact: 'Elected to the Baseball Hall of Fame in his first year of eligibility (2022).',
+                        achievements: ['3x World Series Champion', 'World Series Most Valuable Player (2013)', 'Founder of David Ortiz Children\'s Fund']
+                    },
+                    {
+                        name: 'Julia Alvarez',
+                        field: 'Arts & Literature',
+                        bio: 'Acclaimed Dominican-American poet, essayist, and novelist known for classic novels like "How the García Girls Lost Their Accents" and "In the Time of the Butterflies".',
+                        fact: 'Awarded the National Medal of Arts by President Barack Obama in 2013.',
+                        achievements: ['National Medal of Arts Recipient', 'Pioneer of Dominican-American literary canon', 'Pura Belpré Award Winner']
+                    }
+                ]
+            },
+            {
+                id: 'puerto_rico',
+                name: 'Puerto Rico',
+                flag: '🇵🇷',
+                region: 'Caribbean',
+                figures: [
+                    {
+                        name: 'Roberto Clemente',
+                        field: 'Sports',
+                        bio: 'Baseball Hall of Famer and humanitarian who achieved 3,000 hits and was a fierce advocate for Latin American baseball players.',
+                        fact: 'Died tragically in a plane crash while delivering earthquake relief supplies to Nicaragua in 1972.',
+                        achievements: ['First Latin American inducted into Baseball Hall of Fame', 'Presidential Medal of Freedom', '12x Gold Glove Award Winner']
+                    },
+                    {
+                        name: 'Rita Moreno',
+                        field: 'Music & Film',
+                        bio: 'Trailblazing actress, dancer, and singer who became one of the very few artists to win an EGOT (Emmy, Grammy, Oscar, Tony).',
+                        fact: 'Won the Academy Award for Best Supporting Actress for "West Side Story" in 1962.',
+                        achievements: ['EGOT Winner', 'Presidential Medal of Freedom Recipient', 'Peabody Career Achievement Award']
+                    },
+                    {
+                        name: 'Sonia Sotomayor (Heritage)',
+                        field: 'Activism & Leadership',
+                        bio: 'Born in New York to Puerto Rican parents, she became the first Latina Supreme Court Justice in United States history.',
+                        fact: 'Proudly identifies with her Nuyorican roots and heritage.',
+                        achievements: ['First Latina Supreme Court Justice', 'Yale Law Graduate', 'Advocate for judicial equity']
+                    },
+                    {
+                        name: 'Bad Bunny (Benito Antonio Martínez Ocasio)',
+                        field: 'Music & Film',
+                        bio: 'Global musical phenomenon who popularized reggaeton and Latin trap worldwide while singing exclusively in Spanish.',
+                        fact: 'His album "Un Verano Sin Ti" was Spotify’s most streamed album globally in 2022 and 2023.',
+                        achievements: ['3x Grammy Award Winner', 'Most streamed artist globally on Spotify (3 consecutive years)', 'Advocate for LGBTQ+ rights & Puerto Rico relief']
+                    }
+                ]
+            },
+
+            // --- SOUTH AMERICA ---
+            {
+                id: 'argentina',
+                name: 'Argentina',
+                flag: '🇦🇷',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Lionel Messi',
+                        field: 'Sports',
+                        bio: 'Widely considered the greatest football player of all time, who captained Argentina to victory in the 2022 FIFA World Cup.',
+                        fact: 'Won a record 8 Ballon d\'Or awards as the best player in world football.',
+                        achievements: ['2022 FIFA World Cup Champion', 'Record 8x Ballon d\'Or Winner', 'Over 800 career goals']
+                    },
+                    {
+                        name: 'Jorge Luis Borges',
+                        field: 'Arts & Literature',
+                        bio: 'Giant of world literature whose short stories explored philosophical themes, labyrinths, mirrors, and infinity.',
+                        fact: 'Fluent in five languages and worked as a librarian while writing masterpieces.',
+                        achievements: ['Founding father of modern Latin American literature', 'Commandeur of the French Legion of Honor', 'Jerusalem Prize Winner']
+                    },
+                    {
+                        name: 'Dr. René Favaloro',
+                        field: 'Science & Innovation',
+                        bio: 'Cardiac surgeon who performed the world\'s first documented coronary artery bypass surgery, saving millions of lives worldwide.',
+                        fact: 'Refused to patent his bypass technique so it could be freely available to medicine.',
+                        achievements: ['Pioneer of Coronary Artery Bypass Surgery', 'Founder of Favaloro Foundation', 'Global medical humanitarian']
+                    },
+                    {
+                        name: 'Mercedes Sosa',
+                        field: 'Music & Film',
+                        bio: 'Known as "La Voz de Latinoamérica", singer who was a primary figure in the *Nueva Canción* movement advocating for peace and freedom.',
+                        fact: 'Latin Grammy Lifetime Achievement Award recipient.',
+                        achievements: ['UNESCO Goodwill Ambassador', 'Voice of freedom across Latin America', '3x Latin Grammy Winner']
+                    }
+                ]
+            },
+            {
+                id: 'bolivia',
+                name: 'Bolivia',
+                flag: '🇧🇴',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Jaime Escalante',
+                        field: 'Science & Innovation',
+                        bio: 'Legendary educator who taught calculus to underprivileged students at Garfield High School in Los Angeles, inspiring the movie "Stand and Deliver".',
+                        fact: 'Received the Presidential Medal for Excellence in Education in 1988.',
+                        achievements: ['Subject of Academy Award-nominated movie "Stand and Deliver"', 'National Teachers Hall of Fame Inductee', 'Commemorated on a U.S. Postage Stamp']
+                    },
+                    {
+                        name: 'Lorgio Vaca',
+                        field: 'Arts & Literature',
+                        bio: 'Master muralist and painter celebrated for giant relief tile murals depicting Indigenous culture and social movements across Bolivia.',
+                        fact: 'Created over 30 monumental public murals throughout Latin America.',
+                        achievements: ['National Art Prize Winner', 'Master of ceramic relief mural technique', 'Cultural ambassador for Indigenous Bolivian art']
+                    },
+                    {
+                        name: 'Domitila Barrios de Chungara',
+                        field: 'Activism & Leadership',
+                        bio: 'Labor leader and feminist who helped overthrow the military dictatorship in Bolivia through a brave hunger strike.',
+                        fact: 'Wrote the influential book "Let Me Speak!" describing working-class struggles.',
+                        achievements: ['Nominated for Nobel Peace Prize (2005)', 'Pioneer of Latin American working-class feminism', 'Key leader in restoring Bolivian democracy']
+                    },
+                    {
+                        name: 'Marco Etcheverry',
+                        field: 'Sports',
+                        bio: 'Nicknamed "El Diablo", legendary football playmaker considered the greatest Bolivian player in modern football history.',
+                        fact: 'Named to the MLS All-Time Best XI after leading DC United to 3 titles.',
+                        achievements: ['Led Bolivia to 1994 FIFA World Cup', '3x MLS Cup Champion', 'DC United Hall of Tradition Inductee']
+                    }
+                ]
+            },
+            {
+                id: 'chile',
+                name: 'Chile',
+                flag: '🇨🇱',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Pablo Neruda',
+                        field: 'Arts & Literature',
+                        bio: 'Nobel Prize-winning poet and diplomat, celebrated for passionate love poems and historical epics. Gabriel García Márquez called him "the greatest poet of the 20th century".',
+                        fact: 'Won the Nobel Prize in Literature in 1971.',
+                        achievements: ['Nobel Laureate in Literature', 'Author of "Twenty Love Poems and a Song of Despair"', 'International Peace Prize winner']
+                    },
+                    {
+                        name: 'Gabriela Mistral',
+                        field: 'Arts & Literature',
+                        bio: 'Poet, educator, and diplomat who became the first Latin American author to receive the Nobel Prize in Literature in 1945.',
+                        fact: 'Her image appears on the Chilean 5,000-peso banknote.',
+                        achievements: ['First Latin American Nobel Laureate in Literature', 'Educational reformer across Chile & Mexico', 'Chilean National Literature Prize Winner']
+                    },
+                    {
+                        name: 'Isabel Allende',
+                        field: 'Arts & Literature',
+                        bio: 'Bestselling author whose works of magic realism include "The House of the Spirits" and "City of the Beasts".',
+                        fact: 'The world\'s most widely read Spanish-language author, with over 77 million books sold.',
+                        achievements: ['Presidential Medal of Freedom Recipient', 'Chilean National Literature Prize', 'Over 77 million books sold in 40+ languages']
+                    },
+                    {
+                        name: 'Alexis Sánchez',
+                        field: 'Sports',
+                        bio: 'All-time leading goalscorer and appearance maker for the Chile National Team, leading them to back-to-back Copa América trophies.',
+                        fact: 'Scored the winning penalty kick in the 2015 Copa América Final.',
+                        achievements: ['2x Copa América Champion (2015, 2016)', 'Chile’s all-time top goalscorer', 'Played for Barcelona, Arsenal, and Inter Milan']
+                    }
+                ]
+            },
+            {
+                id: 'colombia',
+                name: 'Colombia',
+                flag: '🇨🇴',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Gabriel García Márquez',
+                        field: 'Arts & Literature',
+                        bio: 'Affectionately known as "Gabo", pioneer of magic realism and author of masterpiece novel "One Hundred Years of Solitude".',
+                        fact: 'Awarded the Nobel Prize in Literature in 1982.',
+                        achievements: ['Nobel Prize Winner in Literature', 'Author of "One Hundred Years of Solitude" & "Love in the Time of Cholera"', 'Master of Magical Realism']
+                    },
+                    {
+                        name: 'Shakira',
+                        field: 'Music & Film',
+                        bio: 'Global pop superstar, dancer, and songwriter referred to as the "Queen of Latin Music", selling over 90 million records.',
+                        fact: 'Founded the Pies Descalzos Foundation at age 18 to build schools for underprivileged children.',
+                        achievements: ['3x Grammy & 14x Latin Grammy Winner', 'Unicef Goodwill Ambassador', 'Global icon with over 90 million records sold']
+                    },
+                    {
+                        name: 'Fernando Botero',
+                        field: 'Arts & Literature',
+                        bio: 'Famed figurative artist and sculptor recognized for his signature style depicting people and figures in exaggerated, voluminous proportion ("Boterismo").',
+                        fact: 'His colossal bronze sculptures adorn major avenues from Paris to New York.',
+                        achievements: ['Creator of world-famous "Boterismo" style', 'Botero Museum in Bogotá housing hundreds of works', 'Global public art master']
+                    },
+                    {
+                        name: 'Mariana Pajón',
+                        field: 'Sports',
+                        bio: 'BMX cyclist known as the "Queen of BMX", who became the first Colombian athlete to win two Olympic Gold medals.',
+                        fact: 'Won Gold medals at the 2012 London and 2016 Rio Olympics.',
+                        achievements: ['2x Olympic Gold Medalist & 1x Silver', 'Multi-time BMX World Champion', 'Order of Boyacá recipient']
+                    }
+                ]
+            },
+            {
+                id: 'ecuador',
+                name: 'Ecuador',
+                flag: '🇪🇨',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Oswaldo Guayasamín',
+                        field: 'Arts & Literature',
+                        bio: 'Master painter and sculptor of Quechua and Mestizo heritage whose powerful art protested social injustice and human suffering.',
+                        fact: 'Designed the "Capilla del Hombre" (Chapel of Man) museum in Quito.',
+                        achievements: ['UNESCO Prize for Human Rights and Peace', 'Created Chapel of Man monument', 'Master of Latin American expressionism']
+                    },
+                    {
+                        name: 'Jefferson Pérez',
+                        field: 'Sports',
+                        bio: 'Race walker who won Ecuador\'s first-ever Olympic Gold medal at the 1996 Atlanta Games in the 20km walk event.',
+                        fact: 'Won 3 consecutive World Championship titles in race walking.',
+                        achievements: ['1996 Olympic Gold Medalist (20km walk)', '2008 Olympic Silver Medalist', '3x World Champion']
+                    },
+                    {
+                        name: 'Matilde Hidalgo de Procel',
+                        field: 'Activism & Leadership',
+                        bio: 'Physician and activist who was the first woman to earn a medical degree in Ecuador and the first woman to vote in a Latin American presidential election.',
+                        fact: 'Her insistence on voting in 1924 established female suffrage across Ecuador.',
+                        achievements: ['First female doctor in Ecuador', 'Pioneer who secured women\'s right to vote in Ecuador (1924)', 'National Merit Medal Awardee']
+                    },
+                    {
+                        name: 'Richard Carapaz',
+                        field: 'Sports',
+                        bio: 'Professional road cyclist nicknamed "La Locomotora de Carchi", who became the first Ecuadorian to win the Giro d\'Italia and Olympic Road Race Gold.',
+                        fact: 'Won Gold Medal in the men\'s road race at the 2020 Tokyo Olympics.',
+                        achievements: ['2020 Tokyo Olympic Gold Medalist', '2019 Giro d\'Italia Champion', 'Podium finisher in all 3 Grand Tours (Tour, Giro, Vuelta)']
+                    }
+                ]
+            },
+            {
+                id: 'paraguay',
+                name: 'Paraguay',
+                flag: '🇵🇾',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Augusto Roa Bastos',
+                        field: 'Arts & Literature',
+                        bio: 'Paraguay\'s most celebrated novelist and poet, best known for his masterpiece "I, the Supreme" exploring dictatorship and power.',
+                        fact: 'Won the prestigious Miguel de Cervantes Prize in 1989.',
+                        achievements: ['Cervantes Prize Winner', 'Author of "I, the Supreme"', 'Voice of Paraguayan cultural resilience']
+                    },
+                    {
+                        name: 'Agustín Pío Barrios "Mangoré"',
+                        field: 'Music & Film',
+                        bio: 'Virtuoso classical guitarist and composer celebrated as one of the greatest guitarists and composers for classical guitar of all time.',
+                        fact: 'First classical guitarist to play music recorded on gramophone discs in 1913.',
+                        achievements: ['Composed legendary guitar works "La Catedral" & "Un Sueño en la Floresta"', 'Pioneer of classical guitar recording', 'Paraguayan musical icon']
+                    },
+                    {
+                        name: 'José Luis Chilavert',
+                        field: 'Sports',
+                        bio: 'Famous football goalkeeper known for his fiery personality and unusual ability to score goals from free-kicks and penalties.',
+                        fact: 'Scored 67 professional goals in his career—a world record for a goalkeeper at the time.',
+                        achievements: ['3x IFFHS World\'s Best Goalkeeper', 'Scored hat-trick as a goalkeeper in a single match', 'Led Paraguay in 1998 & 2002 World Cups']
+                    },
+                    {
+                        name: 'Berta Rojas',
+                        field: 'Music & Film',
+                        bio: 'Renowned classical guitarist and ambassador of Paraguayan music who won two Latin Grammy Awards.',
+                        fact: 'Won Best Classical Album at the Latin Grammys in 2022 for "Legado".',
+                        achievements: ['2x Latin Grammy Winner', 'Fellow of the Americas', 'Ambassador of Tourism for Paraguay']
+                    }
+                ]
+            },
+            {
+                id: 'peru',
+                name: 'Peru',
+                flag: '🇵🇪',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Mario Vargas Llosa',
+                        field: 'Arts & Literature',
+                        bio: 'Novelist, essayist, and politician who received the 2010 Nobel Prize in Literature for his cartography of structures of power.',
+                        fact: 'Published iconic books like "The Time of the Hero" and "Conversation in the Cathedral".',
+                        achievements: ['2010 Nobel Prize in Literature', 'Miguel de Cervantes Prize winner', 'Member of the Académie Française']
+                    },
+                    {
+                        name: 'Gastón Acurio',
+                        field: 'Science & Innovation',
+                        bio: 'Celebrated chef, ambassador, and entrepreneur who turned Peruvian gastronomy into a global culinary phenomenon.',
+                        fact: 'Helped establish Peruvian Ceviche and ingredients on high-end menus globally.',
+                        achievements: ['The Diners Club Lifetime Achievement Award', 'Founder of Astrid y Gastón', 'Global culinary ambassador for Peru']
+                    },
+                    {
+                        name: 'Chabuca Granda',
+                        field: 'Music & Film',
+                        bio: 'Singer and songwriter who composed iconic Afro-Peruvian and Criollo songs including "La Flor de la Canela".',
+                        fact: 'Her work was declared Cultural Heritage of the Nation in Peru.',
+                        achievements: ['Composer of timeless anthem "La Flor de la Canela"', 'Pioneer of Afro-Peruvian rhythm revival', 'Cultural Icon of Peru']
+                    },
+                    {
+                        name: 'Clorinda Matto de Turner',
+                        field: 'Arts & Literature',
+                        bio: '19th-century writer and activist whose novel "Aves sin nido" was one of the earliest social protest novels defending Indigenous rights in Peru.',
+                        fact: 'Pioneered Indigenismo literature in South America.',
+                        achievements: ['Pioneer of social realism and Indigenismo literature', 'Founder of feminist literary circles', 'Advocate for rural Indigenous education']
+                    }
+                ]
+            },
+            {
+                id: 'uruguay',
+                name: 'Uruguay',
+                flag: '🇺🇾',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Mario Benedetti',
+                        field: 'Arts & Literature',
+                        bio: 'Beloved poet, novelist, and journalist, member of the "Generation of 45", author of iconic novel "La Tregua" (The Truce).',
+                        fact: 'Published over 80 books translated into 20 languages.',
+                        achievements: ['Author of "La Tregua" adapted into Oscar-nominated film', 'Queen Sofía Prize for Ibero-American Poetry', 'National cultural treasure of Uruguay']
+                    },
+                    {
+                        name: 'Luis Suárez',
+                        field: 'Sports',
+                        bio: 'World-renowned football striker, Uruguay\'s all-time leading goalscorer, known for incredible skill and competitive drive.',
+                        fact: 'Won 2 European Golden Shoes as top goalscorer in Europe.',
+                        achievements: ['Uruguay\'s All-time leading goalscorer', 'Copa América Champion (2011) & Player of the Tournament', 'UEFA Champions League Winner with Barcelona']
+                    },
+                    {
+                        name: 'Juana de Ibarbourou',
+                        field: 'Arts & Literature',
+                        bio: 'Celebrated poet popularly known as "Juana de América" for her vibrant, nature-inspired feminist poetry.',
+                        fact: 'Formally named "Juana de América" at the Palace of the Legislative Power in 1929.',
+                        achievements: ['Crown Title "Juana de América"', 'President of the Society of Uruguayan Authors', 'Featured on 1,000 Uruguayan peso banknote']
+                    },
+                    {
+                        name: 'Ida Vitale',
+                        field: 'Arts & Literature',
+                        bio: 'Poet, essayist, translator, and literary critic who won the Miguel de Cervantes Prize at age 95.',
+                        fact: 'Member of the influential "Generación del 45".',
+                        achievements: ['2018 Miguel de Cervantes Prize Winner', 'Reina Sofía Poetry Award', 'Alfonso Reyes International Prize']
+                    }
+                ]
+            },
+            {
+                id: 'venezuela',
+                name: 'Venezuela',
+                flag: '🇻🇪',
+                region: 'South America',
+                figures: [
+                    {
+                        name: 'Simón Bolívar',
+                        field: 'Activism & Leadership',
+                        bio: 'Military and political leader known as "El Libertador" who led independence movements freeing 6 South American nations from Spanish rule.',
+                        fact: 'The country of Bolivia is named directly in his honor.',
+                        achievements: ['Liberator of Venezuela, Colombia, Ecuador, Peru, Panama, and Bolivia', 'President of Gran Colombia', 'Universal historical figure']
+                    },
+                    {
+                        name: 'Yulimar Rojas',
+                        field: 'Sports',
+                        bio: 'Athletics star who holds the world record in the triple jump and won Olympic Gold at the 2020 Tokyo Games.',
+                        fact: 'Smashed the triple jump world record with a leap of 15.74m.',
+                        achievements: ['Tokyo 2020 Olympic Gold Medalist', 'Current Triple Jump World Record Holder', '4x World Outdoor Champion']
+                    },
+                    {
+                        name: 'Carolina Herrera',
+                        field: 'Arts & Literature',
+                        bio: 'Fashion designer known for her personal elegance and dressing global First Ladies and celebrities for decades.',
+                        fact: 'Founded her eponymous luxury fashion house in New York City in 1981.',
+                        achievements: ['CFDA Geoffrey Beene Lifetime Achievement Award', 'Design Icon for global royalty', 'Gold Medal of Merit in Fine Arts']
+                    },
+                    {
+                        name: 'Dr. Baruj Benacerraf',
+                        field: 'Science & Innovation',
+                        bio: 'Venezuelan-born immunologist who won the 1980 Nobel Prize in Physiology or Medicine for his discovery of major histocompatibility complex genes.',
+                        fact: 'Served as President of the Dana-Farber Cancer Institute.',
+                        achievements: ['1980 Nobel Prize Winner in Medicine', 'National Medal of Science Recipient', 'Pioneer in understanding immune system genetics']
+                    }
+                ]
+            },
+
+            // --- EUROPE & AFRICA ---
+            {
+                id: 'spain',
+                name: 'Spain',
+                flag: '🇪🇸',
+                region: 'Europe & Africa',
+                figures: [
+                    {
+                        name: 'Pablo Picasso',
+                        field: 'Arts & Literature',
+                        bio: 'Co-founder of the Cubist movement and one of the most influential artists of the 20th century.',
+                        fact: 'Painted "Guernica", one of the most powerful anti-war paintings in history.',
+                        achievements: ['Co-founder of Cubism', 'Creator of Guernica & Les Demoiselles d\'Avignon', 'Produced over 20,000 works of art']
+                    },
+                    {
+                        name: 'Rafael Nadal',
+                        field: 'Sports',
+                        bio: 'Tennis legend known as the "King of Clay", winning 22 Grand Slam men\'s singles titles including 14 French Open titles.',
+                        fact: 'Won 14 French Open titles—a single-tournament record unmatched in tennis history.',
+                        achievements: ['22 Grand Slam Singles Titles', '2x Olympic Gold Medalist', 'Prince of Asturias Award for Sports']
+                    },
+                    {
+                        name: 'Rosalía',
+                        field: 'Music & Film',
+                        bio: 'Grammy-winning singer-songwriter who modernized traditional Flamenco by fusing it with pop, urban, and electronic music.',
+                        fact: 'First Spanish-language artist nominated for Best New Artist at the Grammy Awards.',
+                        achievements: ['2x Grammy & 12x Latin Grammy Winner', 'Album "Motomami" received worldwide critical acclaim', 'Pioneer in modern Flamenco fusion']
+                    },
+                    {
+                        name: 'Federico García Lorca',
+                        field: 'Arts & Literature',
+                        bio: 'Poet and playwright, member of the Generation of \'27, celebrated for masterpieces like "Blood Wedding" and "The House of Bernarda Alba".',
+                        fact: 'Achieved international recognition before his tragic death during the Spanish Civil War.',
+                        achievements: ['Author of "Bodas de Sangre" & "Romancero Gitano"', 'Key icon of modern Spanish theater', 'Global symbol of artistic freedom']
+                    }
+                ]
+            },
+            {
+                id: 'equatorial_guinea',
+                name: 'Equatorial Guinea',
+                flag: '🇬🇶',
+                region: 'Europe & Africa',
+                figures: [
+                    {
+                        name: 'María Nsué Angüe',
+                        field: 'Arts & Literature',
+                        bio: 'Writer and politician who wrote "Ekomo", widely considered the first novel published by an Equatoguinean woman.',
+                        fact: '"Ekomo" weaves Fang traditional law and culture into modern storytelling.',
+                        achievements: ['Pioneer of Equatoguinean female literature', 'Author of groundbreaking novel "Ekomo"', 'Former Minister of Education and Culture']
+                    },
+                    {
+                        name: 'Eric Moussambani',
+                        field: 'Sports',
+                        bio: 'Swimmer famously nicknamed "Eric the Eel" who inspired millions worldwide at the 2000 Sydney Olympics.',
+                        fact: 'Had never seen a 50m Olympic pool before arriving at the Sydney Games.',
+                        achievements: ['Global symbol of the Olympic Spirit', 'National Swimming Coach for Equatorial Guinea', 'Promoter of sports youth development']
+                    },
+                    {
+                        name: 'Donato Ndongo-Bidyogo',
+                        field: 'Arts & Literature',
+                        bio: 'Prominent journalist, writer, and scholar whose works like "Shadows of Your Black Memory" explore post-colonial identity and Spanish-African ties.',
+                        fact: 'Pioneered Hispanic-African literary studies in Spain and the Americas.',
+                        achievements: ['Author of "Las tinieblas de mi memoria negra"', 'Director of Center for African Studies in Murcia', 'Key voice in Afro-Hispanic literature']
+                    },
+                    {
+                        name: 'Trina Pilar',
+                        field: 'Activism & Leadership',
+                        bio: 'Cultural advocate and educator dedicated to preserving the Spanish and Indigenous language heritage of Equatorial Guinea.',
+                        fact: 'Equatorial Guinea is the only country in Africa where Spanish is an official language.',
+                        achievements: ['Promoter of Hispanic-African educational exchange', 'Advocate for women literacy', 'Cultural ambassador']
+                    }
+                ]
+            }
+        ];
+
+        let currentRegion = 'All';
+        let currentCountryId = 'mexico'; // Default active country
+        let currentField = 'All';
+        let searchQuery = '';
+
+        // DOM Element References
+        const regionTabsContainer = document.getElementById('regionTabs');
+        const countryTabsContainer = document.getElementById('countryTabs');
+        const figuresGrid = document.getElementById('figuresGrid');
+        const currentTitle = document.getElementById('currentTitle');
+        const currentSubtitle = document.getElementById('currentSubtitle');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        const resultsCount = document.getElementById('resultsCount');
+
+        // Regions List
+        const regions = ['All', 'North & Central America', 'Caribbean', 'South America', 'Europe & Africa'];
+
+        function initApp() {
+            renderRegionTabs();
+            renderCountryTabs();
+            renderFigures();
+            setupEventListeners();
+        }
+
+        // Render Region Category Filter Buttons
+        function renderRegionTabs() {
+            regionTabsContainer.innerHTML = regions.map(region => `
+                <button class="region-btn px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm ${region === currentRegion ? 'bg-brand-red text-white' : 'bg-white text-slate-700 hover:bg-amber-100'}" data-region="${region}">
+                    ${region}
+                </button>
+            `).join('');
+        }
+
+        // Render Country Tabs Horizontal Slider
+        function renderCountryTabs() {
+            let filteredCountries = hispanicData;
+            if (currentRegion !== 'All') {
+                filteredCountries = hispanicData.filter(c => c.region === currentRegion);
+            }
+
+            // Update badge count
+            document.getElementById('countryCountBadge').textContent = `${filteredCountries.length} Regions`;
+
+            countryTabsContainer.innerHTML = filteredCountries.map(country => `
+                <button class="country-tab flex items-center gap-2 px-4 py-2.5 rounded-2xl whitespace-nowrap text-sm font-semibold transition-all border shrink-0 ${country.id === currentCountryId && !searchQuery ? 'bg-gradient-to-r from-brand-gold to-amber-500 text-slate-900 border-amber-400 shadow-md scale-105' : 'bg-white text-slate-700 border-amber-200/80 hover:bg-amber-50'}" data-id="${country.id}">
+                    <span class="text-xl">${country.flag}</span>
+                    <span>${country.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function renderFigures() {
+            let figuresToDisplay = [];
+
+            // Case 1: User is Searching across ALL figures
+            if (searchQuery.trim() !== '') {
+                const query = searchQuery.toLowerCase();
+                hispanicData.forEach(country => {
+                    country.figures.forEach(fig => {
+                        if (fig.name.toLowerCase().includes(query) || 
+                            fig.field.toLowerCase().includes(query) || 
+                            fig.bio.toLowerCase().includes(query) || 
+                            fig.achievements.some(a => a.toLowerCase().includes(query))) {
+                            figuresToDisplay.push({ ...fig, countryName: country.name, flag: country.flag, countryId: country.id });
+                        }
+                    });
+                });
+
+                currentTitle.innerHTML = `<i class="fa-solid fa-magnifying-glass text-brand-gold"></i> Search Results for "${searchQuery}"`;
+                currentSubtitle.textContent = `Found ${figuresToDisplay.length} figure(s) matching your criteria across all regions.`;
+            } 
+            // Case 2: Browsing by Selected Country
+            else {
+                const activeCountry = hispanicData.find(c => c.id === currentCountryId) || hispanicData[0];
+                currentTitle.innerHTML = `<span class="text-4xl">${activeCountry.flag}</span> ${activeCountry.name}`;
+                currentSubtitle.textContent = `Discover influential pioneers, icons, and leaders from ${activeCountry.name}.`;
+
+                figuresToDisplay = activeCountry.figures.map(fig => ({
+                    ...fig,
+                    countryName: activeCountry.name,
+                    flag: activeCountry.flag,
+                    countryId: activeCountry.id
+                }));
+            }
+
+            // Apply Industry Field Filter
+            if (currentField !== 'All') {
+                figuresToDisplay = figuresToDisplay.filter(fig => fig.field === currentField);
+            }
+
+            resultsCount.textContent = `Showing ${figuresToDisplay.length} figure(s)`;
+
+            // Handle empty state
+            if (figuresToDisplay.length === 0) {
+                figuresGrid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            // Render Card Grid
+            figuresGrid.innerHTML = figuresToDisplay.map((fig, idx) => {
+                const fieldBadgeColor = getFieldColor(fig.field);
+
+                return `
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:shadow-xl transition-all border border-amber-100 flex flex-col justify-between group transform hover:-translate-y-1">
+                        <div>
+                            <!-- Header Info -->
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="text-xs font-bold px-3 py-1 rounded-full ${fieldBadgeColor}">
+                                    ${fig.field}
+                                </span>
+                                <span class="text-2xl" title="${fig.countryName}">${fig.flag}</span>
+                            </div>
+
+                            <h3 class="text-xl font-extrabold text-slate-800 group-hover:text-brand-red transition-colors mb-2">
+                                ${fig.name}
+                            </h3>
+
+                            <p class="text-slate-600 text-sm line-clamp-3 mb-4 font-normal leading-relaxed">
+                                ${fig.bio}
+                            </p>
+                        </div>
+
+                        <div>
+                            <!-- Quick Fact snippet -->
+                            <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-200/60 mb-4">
+                                <p class="text-xs text-amber-900 font-medium italic line-clamp-2">
+                                    ${fig.fact}
+                                </p>
+                            </div>
+
+                            <button onclick='openModal(${JSON.stringify(fig).replace(/'/g, "&apos;")})' class="w-full py-2.5 px-4 bg-slate-100 group-hover:bg-brand-gold group-hover:text-slate-900 text-slate-700 font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2">
+                                <span>Learn More & Impact</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Helper function for industry field badges
+        function getFieldColor(field) {
+            switch(field) {
+                case 'Arts & Literature': return 'bg-purple-100 text-purple-800 border border-purple-200';
+                case 'Music & Film': return 'bg-pink-100 text-pink-800 border border-pink-200';
+                case 'Sports': return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
+                case 'Science & Innovation': return 'bg-sky-100 text-sky-800 border border-sky-200';
+                case 'Activism & Leadership': return 'bg-amber-100 text-amber-800 border border-amber-200';
+                default: return 'bg-slate-100 text-slate-800';
+            }
+        }
+
+        function setupEventListeners() {
+            // Region Filter Clicks
+            regionTabsContainer.addEventListener('click', (e) => {
+                const btn = e.target.closest('.region-btn');
+                if (!btn) return;
+                currentRegion = btn.dataset.region;
+                renderRegionTabs();
+                renderCountryTabs();
+
+                // Select first country in this region
+                let filtered = hispanicData;
+                if (currentRegion !== 'All') {
+                    filtered = hispanicData.filter(c => c.region === currentRegion);
+                }
+                if (filtered.length > 0) {
+                    currentCountryId = filtered[0].id;
+                }
+                searchQuery = '';
+                searchInput.value = '';
+                renderFigures();
+            });
+
+            // Country Tab Clicks
+            countryTabsContainer.addEventListener('click', (e) => {
+                const tab = e.target.closest('.country-tab');
+                if (!tab) return;
+                currentCountryId = tab.dataset.id;
+                searchQuery = '';
+                searchInput.value = '';
+                renderCountryTabs();
+                renderFigures();
+            });
+
+            // Industry Field Filter Buttons
+            document.querySelectorAll('.field-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.field-filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-brand-navy', 'text-white');
+                        b.classList.add('bg-slate-100', 'text-slate-700');
+                    });
+                    btn.classList.add('active', 'bg-brand-navy', 'text-white');
+                    btn.classList.remove('bg-slate-100', 'text-slate-700');
+
+                    currentField = btn.dataset.field;
+                    renderFigures();
+                });
+            });
+
+            // Search Bar Input
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderFigures();
+            });
+
+            // Reset Search Button
+            document.getElementById('resetSearchBtn').addEventListener('click', () => {
+                searchQuery = '';
+                searchInput.value = '';
+                currentField = 'All';
+                document.querySelectorAll('.field-filter-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-brand-navy', 'text-white');
+                    b.classList.add('bg-slate-100', 'text-slate-700');
+                });
+                document.querySelector('[data-field="All"]').classList.add('active', 'bg-brand-navy', 'text-white');
+                renderFigures();
+            });
+
+            // Modal Close handlers
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+            document.getElementById('closeModalFooterBtn').addEventListener('click', closeModal);
+            document.getElementById('figureModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('figureModal')) closeModal();
+            });
+
+            // Canvas Modal Open/Close handlers
+            const canvasModal = document.getElementById('canvasModal');
+            document.getElementById('canvasModalBtn').addEventListener('click', () => {
+                const embedSnippet = `<iframe src="${window.location.href}" width="100%" height="800" style="border:none; border-radius:12px; shadow:lg;" title="Hispanic Heritage Month Showcase"></iframe>`;
+                document.getElementById('embedCodeText').value = embedSnippet;
+                canvasModal.classList.remove('hidden');
+            });
+
+            document.getElementById('closeCanvasModalBtn').addEventListener('click', () => canvasModal.classList.add('hidden'));
+            document.getElementById('closeCanvasModalFooter').addEventListener('click', () => canvasModal.classList.add('hidden'));
+
+            // Copy Embed Code
+            document.getElementById('copyEmbedBtn').addEventListener('click', () => {
+                const copyText = document.getElementById('embedCodeText');
+                copyText.select();
+                document.execCommand('copy');
+                
+                const msg = document.getElementById('copySuccessMsg');
+                msg.classList.remove('hidden');
+                setTimeout(() => msg.classList.add('hidden'), 2500);
+            });
+        }
+
+        function openModal(figure) {
+            document.getElementById('modalFlag').textContent = figure.flag;
+            document.getElementById('modalCountry').textContent = figure.countryName;
+            document.getElementById('modalName').textContent = figure.name;
+            document.getElementById('modalField').textContent = figure.field;
+            document.getElementById('modalBio').textContent = figure.bio;
+            document.getElementById('modalFact').textContent = figure.fact;
+
+            const listContainer = document.getElementById('modalAchievements');
+            listContainer.innerHTML = figure.achievements.map(ach => `
+                <li class="flex items-start gap-2">
+                    <i class="fa-solid fa-circle-check text-brand-teal mt-1"></i>
+                    <span>${ach}</span>
+                </li>
+            `).join('');
+
+            document.getElementById('figureModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('figureModal').classList.add('hidden');
+        }
+
+        // Initialize on DOM load
+        window.onload = initApp;
+    </script>
+</body>
+</html>
